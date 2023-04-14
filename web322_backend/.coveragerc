@@ -1,0 +1,6 @@
+[run]
+source = web322_backend
+omit = 
+    tests/*
+    autoapp.py
+
