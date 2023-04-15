@@ -37,5 +37,11 @@ def create_app():
     bcrypt.init_app(app)
     apikey_manager.init_app(app)
 
+    import web322_backend.models
+    with app.app_context():
+        print("creating tables ---------------------------")
+        db.create_all()
+        print("created tables ............................")
+
     return app
 
