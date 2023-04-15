@@ -31,6 +31,8 @@ def create_app():
     app.register_blueprint(auth_blueprint)
     from .serviceworker import serviceworker as serviceworker_blueprint
     app.register_blueprint(serviceworker_blueprint)
+    from .dashboard import dashboard as dashboard_blueprint
+    app.register_blueprint(dashboard_blueprint)
 
     login_manager.init_app(app)
     db.init_app(app)

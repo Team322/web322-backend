@@ -78,7 +78,7 @@ def logout():
 def require_apikey(view_function):
     @wraps(view_function)
     def decorated_function(*args, **kwargs):
-        if request.headers.get('X-API-KEY', "") == current_app.config['SERVICE_WORKER_API_KEY']
+        if request.headers.get('X-API-KEY', "") == current_app.config['SERVICE_WORKER_API_KEY']:
             return view_function(*args, **kwargs)
         else:
             abort(401)
