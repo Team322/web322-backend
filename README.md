@@ -13,3 +13,6 @@ We need routes for:
 4. user login and registration page
 5. user status/history page, where they can see their invocation history
 
+We will also need to be careful when doing the actual tcpdump/session capture of openai api calls
+
+## TODO
