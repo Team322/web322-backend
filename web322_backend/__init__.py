@@ -16,11 +16,12 @@ apikey_manager = APIKeyManager()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, supports_credentials=True, origins=["http://localhost:3000", "https://localhost:5000"])
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000",  os.environ.get("REACT_APP_BACKEND_URL")])
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('SQLALCHEMY_DATABASE_URI')
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SERVICE_WORKER_API_KEY'] = os.environ.get('SERVICE_WORKER_API_KEY')
     app.config["SESSION_COOKIE_SAMESITE"] = "None"
+    app.config["SESSION_COOKIE_SECURE"] = False
 
     login_manager.session_protection = "strong"
     login_manager.login_view = "auth.login"
