@@ -32,7 +32,7 @@ def create_app():
         return "Unauthorized", 401
 
     # Invocation files
-    @app.route('/invocations/<path:filename>')
+    @app.route('/download/<path:filename>')
     def custom_static(filename):
         return send_from_directory(app.config["INVOCATION_FILE_PATH"], filename)
 
