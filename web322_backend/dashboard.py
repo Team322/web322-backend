@@ -25,7 +25,7 @@ def add_request():
     w3r.params = rq['jsonParameters']
     w3r.calling_contract_addr = rq['contractAddress']
     w3r.calling_contract_chain = rq['chainOption']
-    w3r.encryption_key = rq['encryptionKey']
+    w3r.encryption_key = rq.get('encryptionKey', None)
     w3r.frontend_index = fe_index
     print("here2")
 

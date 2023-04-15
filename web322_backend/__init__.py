@@ -16,7 +16,7 @@ apikey_manager = APIKeyManager()
 
 def create_app():
     app = Flask(__name__, static_url_path='', 
-            static_folder='/volume/',)
+            static_folder=os.environ.get("FLASK_STATIC_PATH", "/volume/"))
     CORS(app, supports_credentials=True, origins=["http://localhost:5000"])
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('SQLALCHEMY_DATABASE_URI')
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -28,7 +28,6 @@ def create_app():
 
     @login_manager.unauthorized_handler
     def dont_redirect():
-        print(session)
         return "Unauthorized", 401
 
     from .main import main as main_blueprint
