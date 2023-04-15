@@ -131,3 +131,4 @@ dmypy.json
 venv/
 .idea/
 web322_backend/db.sqlite
+migrations
