@@ -49,5 +49,4 @@ class Web2Response(db.Model):
     calling_contract_addr = db.Column(db.String(256))
     api_url = db.Column(db.String(300))
     uid = db.Column(db.String(256), nullable=False)
-    response = db.Column(db.LargeBinary, nullable=False)
     timestamp = db.Column(db.DateTime, server_default=db.func.current_timestamp())

@@ -38,8 +38,7 @@ def storeinvocation():
 
     # Insert the response into the database
     resp_data = Web2Response(calling_contract_addr=contract_address, calling_contract_chain=contract_chain,
-                             api_url=api_url, uid=uid, response=response, request_id=used_request_config.id)
+                             api_url=api_url, uid=uid, request_id=used_request_config.id)
     db.session.add(resp_data)
     db.session.commit()
     return jsonify({"success": "Response stored"}), 200
-

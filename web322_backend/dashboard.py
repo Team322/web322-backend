@@ -75,8 +75,3 @@ def dashboard_data():
 
     return jsonify(return_data), 200
 
-
-@dashboard.route('/web2response')
-@cross_origin(supports_credentials=True)
-def get_response():
-    return "kekw"
