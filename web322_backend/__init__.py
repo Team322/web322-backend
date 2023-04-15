@@ -20,6 +20,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('SQLALCHEMY_DATABASE_URI')
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SERVICE_WORKER_API_KEY'] = os.environ.get('SERVICE_WORKER_API_KEY')
+    app.config["SESSION_COOKIE_SAMESITE"] = "None"
 
     login_manager.session_protection = "strong"
     login_manager.login_view = "auth.login"
