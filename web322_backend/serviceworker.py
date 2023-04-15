@@ -29,8 +29,8 @@ def storeinvocation():
     # We get the response and uid and calling contract address and calling contract chain from the request,
     # and store it in the database
     req_params = request.get_json()
-    contract_address, contract_chain, api_url, uid, response = req_params["contract_address"], req_params[
-        "contract_chain"], req_params["api_url"], req_params["uid"], req_params["response"]
+    contract_address, contract_chain, api_url, uid = req_params["contract_address"], req_params[
+        "contract_chain"], req_params["api_url"], req_params["uid"]
 
     used_request_config = Web3Request.query.filter_by(calling_contract_addr=contract_address,
                                             calling_contract_chain=contract_chain, api_url=api_url).first()
