@@ -25,6 +25,7 @@ def add_request():
 
     db.session.add(w3r)
     db.session.commit()
+    return jsonify({"success": "Endpoint added"}), 200
 
 
 @dashboard.route('/delete', methods=['POST'])
