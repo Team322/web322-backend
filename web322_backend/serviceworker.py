@@ -6,30 +6,6 @@ from .auth import require_apikey
 from flask_api_key import api_key_required
 
 serviceworker = Blueprint("serviceworker", __name__)
-"""
-class Web3Request(db.Model):
-    __tablename__ = 'requests'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.relationship('User', db.ForeignKey('users.id'))
-    responses = db.relationship('Web2Response', backref='request')
-    calling_contract_chain = db.Column(db.String(256))  # Address and chain for the contract that can call our api
-    calling_contract_addr = db.Column(db.String(256))
-    api_url = db.Column(db.String(300))
-    params = db.Column(db.String(1024))  # JSON with all params needed for the api call
-    encryption_key = db.Column(db.String(64), nullable=True)  # Key to encrypt the response with
-
-
-class Web2Response(db.Model):
-    __tablename__ = 'responses'
-    # Some combination of things concatenated, tbd
-    id = db.Column(db.Integer, primary_key=True)
-    request_id = db.Column(db.Integer, db.ForeignKey('requests.id'))
-    calling_contract_chain = db.Column(db.String(256))  # Address and chain for the contract that can call our api
-    calling_contract_addr = db.Column(db.String(256))
-    api_url = db.Column(db.String(300))
-    uid = db.Column(db.String(256), nullable=False)
-    response = db.Column(db.LargeBinary, nullable=False)
-"""
 
 
 @serviceworker.route("/getapiparams", methods=["GET"])

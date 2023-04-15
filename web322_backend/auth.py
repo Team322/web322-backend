@@ -1,8 +1,9 @@
 from functools import wraps
 
-from flask import Blueprint, jsonify, current_app
+from flask import Blueprint, jsonify, current_app, redirect
 from flask import request, abort
 from flask_login import login_user
+from flask_cors import cross_origin
 from wtforms import StringField, PasswordField, validators, Form
 
 from . import db
@@ -43,8 +44,12 @@ class SignupForm(Form):
         return f"SignupForm('{self.username.data}', '{self.password.data}')"
 
 
-@auth.route("/login", methods=["POST"])
+@auth.route("/login", methods=["POST", "GET"])
+@cross_origin(supports_credentials=True)
 def login():
+    if request.method == "GET":
+        print(request.args)
+        return redirect(request.args.get("next", "/login"))
     form = LoginForm(request.get_json())
     if form.validate():
         user = User.query.filter_by(username=form.username.data).first()
