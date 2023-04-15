@@ -8,7 +8,7 @@ from flask_api_key import api_key_required
 serviceworker = Blueprint("serviceworker", __name__)
 
 
-@serviceworker.route("/getapiparams", methods=["GET"])
+@serviceworker.route("/getapiparams", methods=["POST"])
 @require_apikey
 def getapiparams():
     req_params = request.get_json()
