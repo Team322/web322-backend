@@ -1,5 +1,5 @@
 import os
-from flask import Flask, session
+from flask import Flask, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -21,6 +21,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('SQLALCHEMY_DATABASE_URI')
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SERVICE_WORKER_API_KEY'] = os.environ.get('SERVICE_WORKER_API_KEY')
+    app.config["INVOCATION_FILE_PATH"] = os.environ.get('INVOCATION_FILE_PATH')
 
     login_manager.session_protection = "strong"
     login_manager.login_view = "auth.login"
@@ -29,6 +30,11 @@ def create_app():
     @login_manager.unauthorized_handler
     def dont_redirect():
         return "Unauthorized", 401
+
+    # Invocation files
+    @app.route('/invocations/<path:filename>')
+    def custom_static(filename):
+        return send_from_directory(app.config["INVOCATION_FILE_PATH"], filename)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
