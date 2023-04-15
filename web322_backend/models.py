@@ -29,7 +29,8 @@ class User(db.Model, UserMixin):
 class Web3Request(db.Model):
     __tablename__ = 'requests'
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.String(50))  # Place on the blockchain
+    calling_contract_chain = db.Column(db.String(50))  # Address and chain for the contract that can call our api
+    calling_contract_addr = db.Column(db.String(50))
     api_url = db.Column(db.String(300))
     params = db.Column(db.String(500))  # JSON with all params needed for the api call
 

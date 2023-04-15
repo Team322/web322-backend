@@ -1,7 +1,11 @@
-from flask import Blueprint, jsonify, request
+from functools import wraps
+
+from flask import Blueprint, jsonify, current_app
+from flask import request, abort
 from flask_login import login_user
 from wtforms import StringField, PasswordField, validators, Form
-from . import db, login_manager
+
+from . import db
 from .models import User
 
 auth = Blueprint("auth", __name__)
@@ -9,7 +13,8 @@ auth = Blueprint("auth", __name__)
 
 class LoginForm(Form):
     class Meta:
-        csrf=False
+        csrf = False
+
     username = StringField("username", [validators.DataRequired(), validators.Length(min=4, max=25)])
     password = PasswordField("password", [validators.DataRequired()])
 
@@ -24,7 +29,8 @@ class LoginForm(Form):
 
 class SignupForm(Form):
     class Meta:
-        csrf=False
+        csrf = False
+
     username = StringField("New username", [validators.DataRequired(), validators.Length(min=4, max=25)])
     password = PasswordField("New Password", [validators.DataRequired()])
 
@@ -67,3 +73,14 @@ def signup():
 @auth.route("/logout")
 def logout():
     return "Logout"
+
+
+def require_apikey(view_function):
+    @wraps(view_function)
+    def decorated_function(*args, **kwargs):
+        if request.headers.get('X-API-KEY', "") == current_app.config['SERVICE_WORKER_API_KEY']
+            return view_function(*args, **kwargs)
+        else:
+            abort(401)
+
+    return decorated_function
