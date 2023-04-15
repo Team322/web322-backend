@@ -14,15 +14,23 @@ dashboard = Blueprint("dashboard", __name__)
 def add_request():
     rq = request.get_json()
 
-    w3r = Web3Request()
-    w3r.user = current_user.id
+    fe_index = rq["index"]
+    w3r = Web3Request.query.filter_by(user_id=current_user.id, frontend_index=fe_index).first()
+    existed = w3r is not None
+    if not existed:
+        w3r = Web3Request()
+    w3r.user_id = current_user.id
     w3r.api_url = rq['url']
     w3r.params = rq['jsonParameters']
     w3r.calling_contract_addr = rq['contractAddress']
     w3r.calling_contract_chain = rq['chainOption']
     w3r.encryption_key = rq['encryptionKey']
-    w3r.frontend_index = rq['index']
+    w3r.frontend_index = fe_index
 
+    # Either update existing entry or add a new one
+    if existed:
+        db.session.commit()
+        return jsonify({"success": "Endpoint updated"}), 200
     db.session.add(w3r)
     db.session.commit()
     return jsonify({"success": "Endpoint added"}), 200
