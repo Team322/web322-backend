@@ -19,6 +19,7 @@ def add_request():
     existed = w3r is not None
     if not existed:
         w3r = Web3Request()
+        print("here1")
     w3r.user_id = current_user.id
     w3r.api_url = rq['url']
     w3r.params = rq['jsonParameters']
@@ -26,13 +27,16 @@ def add_request():
     w3r.calling_contract_chain = rq['chainOption']
     w3r.encryption_key = rq['encryptionKey']
     w3r.frontend_index = fe_index
+    print("here2")
 
     # Either update existing entry or add a new one
     if existed:
         db.session.commit()
+        print("here3")
         return jsonify({"success": "Endpoint updated"}), 200
     db.session.add(w3r)
     db.session.commit()
+    print("here4")
     return jsonify({"success": "Endpoint added"}), 200
 
 
