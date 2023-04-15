@@ -30,6 +30,7 @@ class User(db.Model, UserMixin):
 class Web3Request(db.Model):
     __tablename__ = 'requests'
     id = db.Column(db.Integer, primary_key=True)
+    frontend_index = db.Column(db.Integer, primary_key=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     responses = db.relationship('Web2Response', backref='requests')
     calling_contract_chain = db.Column(db.String(256))  # Address and chain for the contract that can call our api
@@ -49,3 +50,4 @@ class Web2Response(db.Model):
     api_url = db.Column(db.String(300))
     uid = db.Column(db.String(256), nullable=False)
     response = db.Column(db.LargeBinary, nullable=False)
+    timestamp = db.Column(db.DateTime, server_default=db.func.current_timestamp())
