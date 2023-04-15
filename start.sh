@@ -1,7 +1,6 @@
 #! /bin/bash
 set -euxo pipefail
-source venv/bin/activate
 set -o allexport
 source .env
 set +o allexport
-flask run
+python3 -m flask run
