@@ -14,6 +14,7 @@ def getapiparams():
     req_params = request.get_json()
     contract_address, contract_chain, api_url = req_params["contract_address"], req_params["contract_chain"], \
     req_params["api_url"]
+    print(f'contract_address: {contract_address}, contract_chain: {contract_chain}, api_url: {api_url}')
 
     resp_data = Web3Request.query.filter_by(calling_contract_addr=contract_address,
                                             calling_contract_chain=contract_chain, api_url=api_url).first()
