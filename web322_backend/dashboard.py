@@ -21,9 +21,9 @@ def add_request():
         w3r = Web3Request()
         print("here1")
     w3r.user_id = current_user.id
-    w3r.api_url = rq['url']
-    w3r.params = rq['jsonParameters']
-    w3r.calling_contract_addr = rq['contractAddress']
+    w3r.api_url = rq['url'].strip()
+    w3r.params = rq['jsonParameters'].strip()
+    w3r.calling_contract_addr = rq['contractAddress'].upper().strip()
     w3r.calling_contract_chain = rq['chainOption']
     w3r.encryption_key = rq.get('encryptionKey', None)
     w3r.frontend_index = fe_index
