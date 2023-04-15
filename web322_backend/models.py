@@ -37,7 +37,7 @@ class Web3Request(db.Model):
     calling_contract_addr = db.Column(db.String(256))
     api_url = db.Column(db.String(300))
     params = db.Column(db.String(1024))  # JSON with all params needed for the api call
-    encryption_key = db.Column(db.String(64), nullable=True)  # Key to encrypt the response with
+    encryption_key = db.Column(db.String(256), nullable=True)  # Key to encrypt the response with
 
 
 class Web2Response(db.Model):
